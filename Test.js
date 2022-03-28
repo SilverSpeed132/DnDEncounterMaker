@@ -1,12 +1,6 @@
 /*EncounterMaker
 Description:
 This program currently takes a given input, and displays an array of JS objects representing DnD 5e enemies to create a potential encounter.
-
-Known Bugs: 
-- Lines 106-118: numbers are assigned properly, but because of this, the sum of the enemyValues array indices may be considerably lower or higher than xpRange
-    - Possible Fix: have enemyValueArray pull only viable enemyXpAmnts (that are less than calcRange) from calcRange for all but the last enemy
-        - Wouldn't completely fix the bug, but would mitigate variance
-        - Would also need a way to lower the value of the difference lost when the last number is rounded
 */
 
 
@@ -79,26 +73,35 @@ function encounterMaker(numOfPlayers, diff, enemyAmnt, playerLvls){
         case "small":
             enemyCount = 2;
             xpRange /= 1.5
+            xpNeeded /= 1.5
+            nextxpNeeded /= 1.5
             break;
         case "medium":
             enemyCount = Math.floor(Math.random()*4) + 3;
             xpRange /= 2
+            xpNeeded /= 2
+            nextxpNeeded /= 2
             break;
         case "large":
             enemyCount = Math.floor(Math.random()*4) + 7;
             xpRange /= 2.5
+            xpNeeded /= 2.5
+            nextxpNeeded /= 2.5
             break;
         case "many":
             enemyCount = Math.floor(Math.random()*4) + 11;
             xpRange /= 3
+            xpNeeded /= 3
+            nextxpNeeded /= 3
             break;
         case "horde":
             if(xpRange / 100 > 15){
                 enemyCount = xpRange / 100;
             } else enemyCount = 15;
+            xpNeeded /= 4
+            nextxpNeeded /= 4
             break;
     }
-
 
     //uses the eVA function to create an array of values for enemy xpAmnts to pull for.
     let enemyValues = enemyValueArray(xpRange, enemyCount);
@@ -107,6 +110,8 @@ function encounterMaker(numOfPlayers, diff, enemyAmnt, playerLvls){
     let enemyXpAmnts = [0, 25, 50, 100, 200, 450, 700, 1100, 1800, 2300, 2900, 3900, 5000, 5900, 7200,
          8400, 10000, 11500, 13000, 15000, 18000, 20000, 22000, 25000, 33000, 41000, 50000, 62000, 155000]
     let lowerXpAmnt = 0, higherXpAmnt = 0;
+
+    let lxa = [], hxa = [];
 
     //Loops through the enemyValues array and finds which index of enemyXpAmnts it is closest to, and reassigns it to that number.
     for (let i = 0; i < enemyValues.length; i++){
@@ -119,7 +124,58 @@ function encounterMaker(numOfPlayers, diff, enemyAmnt, playerLvls){
         }
         if (enemyValues[i] - lowerXpAmnt > higherXpAmnt - enemyValues[i]){
             enemyValues[i] = higherXpAmnt
-        } else {enemyValues[i] = lowerXpAmnt}
+            if (enemyValues[i] != 155000){
+            hxa.push(enemyXpAmnts[enemyXpAmnts.indexOf(enemyValues[i])+1])
+            } else {hxa.push(155000)}
+            lxa.push(lowerXpAmnt)
+        } else {
+            enemyValues[i] = lowerXpAmnt
+            hxa.push(higherXpAmnt);
+            if (enemyValues[i] != 0){
+            lxa.push(enemyXpAmnts[enemyXpAmnts.indexOf(enemyValues[i])-1])
+            } else {lxa.push(0)}
+        }
+    }
+
+    //gets the Sum of the indices of enemyValues
+    let enemyValueSum = enemyValues.reduce((previousValue, currentValue) => previousValue + currentValue);
+
+    //while eVS > nxN, this loop will lower an index to the next lowest value of enemyXpAmnts.
+    //the index is determined by taking the difference of eVS - nxN = val, and comparing it to each of enemyValue's indices to get which number is closest to val
+    while (enemyValueSum > nextxpNeeded){
+        let val = enemyValueSum - nextxpNeeded
+        let tempArr = []
+        for (let i = 0; i < enemyValues.length; i++){
+            tempArr.push(Math.abs(enemyValues[i] - lxa[i]))
+        }
+        let currentVal = 2000000000;
+        let currentIndex = 0;
+        for (let i = 0; i < tempArr.length; i++){
+            if (Math.abs(val - tempArr[i]) < currentVal && tempArr[i] != 0){
+                currentVal = Math.abs(val - tempArr[i])
+                currentIndex = i;
+            }
+        }
+        enemyValues[currentIndex] = lxa[currentIndex]
+        enemyValueSum = enemyValues.reduce((previousValue, currentValue) => previousValue + currentValue);
+    }
+
+    while (enemyValueSum < xpNeeded){
+        let val = xpNeeded - enemyValueSum;
+        let tempArr = []
+        for (let i = 0; i < enemyValues.length; i++){
+            tempArr.push(Math.abs(hxa[i] - enemyValues[i]))
+        }
+        let currentVal = 2000000000;
+        let currentIndex = 0;
+        for (let i = 0; i < tempArr.length; i++){
+            if(Math.abs(val-tempArr[i]) < currentVal && tempArr[i] != 0){
+                currentVal = Math.abs(val-tempArr[i])
+                currentIndex = i;
+            }
+        }
+        enemyValues[currentIndex] = hxa[currentIndex]
+        enemyValueSum = enemyValues.reduce((previousValue, currentValue) => previousValue + currentValue);
     }
 
     //creates an array of JS objects from enemyArray... filters enemyArray for enemies that match the index at enemyValues, then randomly selects one of those enemies
