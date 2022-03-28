@@ -67,8 +67,9 @@ function encounterMaker(numOfPlayers, diff, enemyAmnt, playerLvls){
     let xpNeeded = dM * ezXpNeeded;
     let nextxpNeeded = (dM + 1) * ezXpNeeded
 
+    let newRange = xpNeeded + ((nextxpNeeded - xpNeeded)/2)
     let xpRange = Math.floor(Math.random()*(nextxpNeeded - xpNeeded)) + xpNeeded;
-
+    xpRange = newRange
     //determines amount of enemies to pull based on enemy amount specified
     let enemyCount = 0;
     switch(enemyAmnt){
@@ -97,6 +98,7 @@ function encounterMaker(numOfPlayers, diff, enemyAmnt, playerLvls){
             } else enemyCount = 15;
             break;
     }
+
 
     //uses the eVA function to create an array of values for enemy xpAmnts to pull for.
     let enemyValues = enemyValueArray(xpRange, enemyCount);
@@ -150,4 +152,4 @@ function enemyValueArray (range, enemyNum){
     return randArr;
 }
 
-encounterMaker(4, "hard", "medium", [4,3,5,3]);
+encounterMaker(4, "hard", "large", [4,3,5,3]);
