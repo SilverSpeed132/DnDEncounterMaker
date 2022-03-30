@@ -23,10 +23,22 @@ const enemyArray = [
     {name: "gargoyle", armorClass: 15, health: 52, strength: 2, dex: 0, con: 3, intel: -2, wis: 0, cha: -2, xpAmnt: 450},
     {name: "hell hound", armorClass: 15, health: 45, strength: 3, dex: 1, con: 2, intel: -2, wis: 1, cha: -2, xpAmnt: 700},
     {name: "banshee", armorClass: 12, health: 58, strength: -5, dex: 2, con: 0, intel: 1, wis: 0, cha: 3, xpAmnt: 1100},
-    {name: "earth elemental", armorClass: 17, health: 126, strength: 5, dex: -1, con: 5, intel: -3, wis: 0, cha: -3, xpAmnt: 1800}
+    {name: "earth elemental", armorClass: 17, health: 126, strength: 5, dex: -1, con: 5, intel: -3, wis: 0, cha: -3, xpAmnt: 1800},
+    {name: "cyclops", armorClass: 14, health: 138, strength: 6, dex: 0, con: 5, intel: -1, wis: -2, cha: 0, xpAmnt: 2300},
+    {name: "mage", armorClass: 12, health: 40, strength: -1, dex: 2, con: 0, intel: 3, wis: 1, cha: 0, xpAmnt: 2300},
+    {name: "oni", armorClass: 16, health: 110, strength: 4, dex: 0, con: 3, intel: 2, wis: 1, cha: 2, xpAmnt: 2900},
+    {name: "shield guardian", armorClass: 17, health: 142, strength: 4, dex: -1, con: 4, intel: -2, wis: 0, cha: -4, xpAmnt: 2900},
+    {name: "hydra", armorClass: 15, health: 172, strength: 5, dex: 1, con: 5, intel: -4, wis: 0, cha: -2, xpAmnt: 3900},
+    {name: "frost giant", armorClass: 15, health: 138, strength: 6, dex: -1, con: 5, intel: -1, wis: 0, cha: 1, xpAmnt: 3900},
+    {name: "treant", armorClass: 16, health: 138, strength: 6, dex: -1, con: 5, intel: 1, wis: 3, cha: 1, xpAmnt: 5000},
+    {name: "glabrezu", armorClass: 17, health: 157, strength: 5, dex: 2, con: 5, intel: 4, wis: 3, cha: 3, xpAmnt: 5000},
+    {name: "aboleth", armorClass: 17, health: 135, strength: 5, dex: -1, con: 2, intel: 4, wis: 2, cha: 4, xpAmnt: 5900},
+    {name: "death slaad", armorClass: 18, health: 170, strength: 5, dex: 2, con: 4, intel: 2, wis: 0, cha: 3, xpAmnt: 5900},
+    {name: "horned devil", armorClass: 18, health: 178, strength: 6, dex: 3, con: 5, intel: 1, wis: 3, cha: 3, xpAmnt: 7200},
+    {name: "behir", armorClass: 17, health: 168, strength: 6, dex: 3, con: 4, intel: -2, wis: 2, cha: 1, xpAmnt: 7200}
 ] 
 
-function encounterMaker(numOfPlayers, diff, enemyAmnt, playerLvls){
+function encounterMaker(diff, enemyAmnt, playerLvls){
     
     let dM = 0; //will hold the difficulty modifier based on diff argument
     let lvl2Xp = []; //array holds each player's XP amount needed for an "easy" difficulty encounter
@@ -160,6 +172,8 @@ function encounterMaker(numOfPlayers, diff, enemyAmnt, playerLvls){
         enemyValueSum = enemyValues.reduce((previousValue, currentValue) => previousValue + currentValue);
     }
 
+    //while eVS < xN, this loop will raise an index to the next highest value of enemyXpAmnts.
+    //the index is determined by taking the difference xN - eVS = val, and comparing it to each of enemyValue's indices to get which number is closest to val
     while (enemyValueSum < xpNeeded){
         let val = xpNeeded - enemyValueSum;
         let tempArr = []
@@ -187,8 +201,8 @@ function encounterMaker(numOfPlayers, diff, enemyAmnt, playerLvls){
         });
         encounterArray.push(tempArray[Math.floor(Math.random()*tempArray.length)])
     }
-    
     console.log(encounterArray)
+    return encounterArray
 }
 
 function enemyValueArray (range, enemyNum){
@@ -208,4 +222,4 @@ function enemyValueArray (range, enemyNum){
     return randArr;
 }
 
-encounterMaker(4, "hard", "large", [4,3,5,3]);
+encounterMaker("hard", "medium", [4,3,5,3]);
