@@ -36,7 +36,28 @@ const enemyArray = [
     {name: "horned devil", armorClass: 18, health: 178, strength: 6, dex: 3, con: 5, intel: 1, wis: 3, cha: 3, xpAmnt: 7200},
     {name: "behir", armorClass: 17, health: 168, strength: 6, dex: 3, con: 4, intel: -2, wis: 2, cha: 1, xpAmnt: 7200},
     {name: "archmage", armorClass: 12, health: 99, strength: 0, dex: 2, con: 1, intel: 5, wis: 2, cha: 3, xpAmnt: 8400},
-    {name: "erinyes", armorClass: 18, health: 153, strength: 4, dex: 3, con: 4, intel: 2, wis: 2, cha: 4, xpAmnt: 8400}
+    {name: "erinyes", armorClass: 18, health: 153, strength: 4, dex: 3, con: 4, intel: 2, wis: 2, cha: 4, xpAmnt: 8400},
+    {name: "vampire", armorClass: 16, health: 144, strength: 4, dex: 4, con: 4, intel: 3, wis: 2, cha: 4, xpAmnt: 10000},
+    {name: "storm giant", armorClass: 16, health: 230, strength: 9, dex: 2, con: 5, intel: 3, wis: 4, cha: 4, xpAmnt: 10000},
+    {name: "ice devil", armorClass: 18, health: 180, strength: 5, dex: 2, con: 4, intel: 4, wis: 2, cha: 4, xpAmnt: 11500},
+    {name: "adult black dragon", armorClass: 19, health: 195, strength: 6, dex: 2, con: 5, intel: 2, wis: 1, cha: 3, xpAmnt: 11500},
+    {name: "adult green dragon", armorClass: 19, health: 207, strength: 6, dex: 1, con: 5, intel: 4, wis: 2, cha: 3, xpAmnt: 13000},
+    {name: "mummy lord", armorClass: 17, health: 97, strength: 4, dex: 0, con: 3, intel: 0, wis: 4, cha: 3, xpAmnt: 13000},
+    {name: "adult silver dragon", armorClass: 19, health: 243, strength: 8, dex: 0, con: 7, intel: 3, wis: 1, cha: 5, xpAmnt: 15000},
+    {name: "iron golem", armorClass: 20, health: 210, strength: 7, dex: -1, con: 5, intel: -4, wis: 0, cha: -5, xpAmnt: 15000},
+    {name: "androsphinx", armorClass: 17, health: 199, strength: 6, dex: 0, con: 5, intel: 3, wis: 4, cha: 6, xpAmnt: 18000},
+    {name: "adult gold dragon", armorClass: 19, health: 256, strength: 8, dex: 2, con: 7, intel: 3, wis: 2, cha: 7, xpAmnt: 18000},
+    {name: "balor", armorClass: 19, health: 262, strength: 8, dex: 2, con: 6, intel: 5, wis: 3, cha: 6, xpAmnt: 22000},
+    {name: "ancient brass dragon", armorClass: 20, health: 297, strength: 8, dex: 0, con: 7, intel: 3, wis: 2, cha: 4, xpAmnt: 25000},
+    {name: "pit fiend", armorClass: 19, health: 300, strength: 8, dex: 2, con: 7, intel: 6, wis: 4, cha: 7, xpAmnt: 25000},
+    {name: "lich", armorClass: 17, health: 135, strength: 0, dex: 3, con: 3, intel: 5, wis: 2, cha: 3, xpAmnt: 33000},
+    {name: "solar", armorClass: 21, health: 243, strength: 8, dex: 6, con: 8, intel: 7, wis: 7, cha: 10, xpAmnt: 33000},
+    {name: "ancient bronze dragon", armorClass: 22, health: 444, strength: 9, dex: 0, con: 8, intel: 4, wis: 3, cha: 5, xpAmnt: 41000},
+    {name: "ancient green dragon", armorClass: 21, health: 385, strength: 8, dex: 1, con: 7, intel: 5, wis: 3, cha: 4, xpAmnt: 41000},
+    {name: "kraken", armorClass: 18, health: 472, strength: 10, dex: 0, con: 7, intel: 6, wis: 4, cha: 5, xpAmnt: 50000},
+    {name: "ancient blue dragon", armorClass: 22, health: 481, strength: 9, dex: 0, con: 8, intel: 4, wis: 3, cha: 5, xpAmnt: 50000},
+    {name: "ancient red dragon", armorClass: 22, health: 546, strength: 10, dex: 0, con: 9, intel: 4, wis: 2, cha: 6, xpAmnt: 62000},
+    {name: "tarrasque", armorClass: 25, health: 676, strength: 10, dex: 0, con: 10, intel: -4, wis: 0, cha: 0, xpAmnt: 155000}
 ] 
 
 function encounterMaker(diff, enemyAmnt, playerLvls){
