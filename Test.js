@@ -238,10 +238,10 @@ function outputFinal (objArr){
                     finalStr += ("Name: " + valueArr[i] + "\n")
                     break;
                 case 1:
-                    finalStr += ("HP: " + valueArr[i] + "\n")
+                    finalStr += ("AC: " + valueArr[i] + "\n")
                     break;
                 case 2:
-                    finalStr += ("AC: " + valueArr[i] + "\n")
+                    finalStr += ("HP: " + valueArr[i] + "\n")
                     break;
                 case 3:
                     finalStr += ("STR: " + valueArr[i] + "\n")
