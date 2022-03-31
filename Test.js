@@ -3,7 +3,6 @@ Description:
 This program currently takes a given input, and displays an array of JS objects representing DnD 5e enemies to create a potential encounter.
 */
 
-
 //Array containing enemy JS objects
 const enemyArray = [
     {name: "owlbear", armorClass: 13, health: 59, strength: 5, dex: 1, con: 3, intel: -4, wis: 1, cha: -2, xpAmnt: 700},
@@ -35,7 +34,9 @@ const enemyArray = [
     {name: "aboleth", armorClass: 17, health: 135, strength: 5, dex: -1, con: 2, intel: 4, wis: 2, cha: 4, xpAmnt: 5900},
     {name: "death slaad", armorClass: 18, health: 170, strength: 5, dex: 2, con: 4, intel: 2, wis: 0, cha: 3, xpAmnt: 5900},
     {name: "horned devil", armorClass: 18, health: 178, strength: 6, dex: 3, con: 5, intel: 1, wis: 3, cha: 3, xpAmnt: 7200},
-    {name: "behir", armorClass: 17, health: 168, strength: 6, dex: 3, con: 4, intel: -2, wis: 2, cha: 1, xpAmnt: 7200}
+    {name: "behir", armorClass: 17, health: 168, strength: 6, dex: 3, con: 4, intel: -2, wis: 2, cha: 1, xpAmnt: 7200},
+    {name: "archmage", armorClass: 12, health: 99, strength: 0, dex: 2, con: 1, intel: 5, wis: 2, cha: 3, xpAmnt: 8400},
+    {name: "erinyes", armorClass: 18, health: 153, strength: 4, dex: 3, con: 4, intel: 2, wis: 2, cha: 4, xpAmnt: 8400}
 ] 
 
 function encounterMaker(diff, enemyAmnt, playerLvls){
@@ -201,8 +202,9 @@ function encounterMaker(diff, enemyAmnt, playerLvls){
         });
         encounterArray.push(tempArray[Math.floor(Math.random()*tempArray.length)])
     }
-    console.log(encounterArray)
-    return encounterArray
+
+    let outputStr = outputFinal(encounterArray)
+    console.log(outputStr)
 }
 
 function enemyValueArray (range, enemyNum){
@@ -220,6 +222,53 @@ function enemyValueArray (range, enemyNum){
     randArr.push(calcRange);
 
     return randArr;
+}
+
+function outputFinal (objArr){
+    let valueArr = [];
+    let finalStr = "";
+    //the first for loop here iterates through the array of objects and assigns their values to an array
+    //the for loop with a switch outputs the enemy values in a visually pleasing way
+    for (let i = 0; i < objArr.length; i++){
+        Object.values(objArr[i]).forEach(val => valueArr.push(val))
+        finalStr += ("Enemy " + (i+1) + ": \n")
+        for (let i = 0; i < valueArr.length; i++){
+            switch(i){
+                case 0:
+                    finalStr += ("Name: " + valueArr[i] + "\n")
+                    break;
+                case 1:
+                    finalStr += ("HP: " + valueArr[i] + "\n")
+                    break;
+                case 2:
+                    finalStr += ("AC: " + valueArr[i] + "\n")
+                    break;
+                case 3:
+                    finalStr += ("STR: " + valueArr[i] + "\n")
+                    break;
+                case 4:
+                    finalStr += ("DEX: " + valueArr[i] + "\n")
+                    break;
+                case 5:
+                    finalStr += ("CON: " + valueArr[i] + "\n")
+                    break;
+                case 6:
+                    finalStr += ("INT: " + valueArr[i] + "\n")
+                    break;
+                case 7:
+                    finalStr += ("WIS: " + valueArr[i] + "\n")
+                    break;
+                case 8:
+                    finalStr += ("CHA: " + valueArr[i] + "\n")
+                    break;
+                case 9:
+                    finalStr += ("XP Given: " + valueArr[i] + "\n\n")
+                    break;    
+            }
+        }
+        valueArr = []
+    }
+    return finalStr;
 }
 
 encounterMaker("hard", "medium", [4,3,5,3]);
